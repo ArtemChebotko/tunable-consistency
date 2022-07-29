@@ -26,11 +26,11 @@ CONSISTENCY LOCAL_QUORUM;
 SELECT * FROM users WHERE email = 'joe@datastax.com';
 ```
 
-<br/>
-
 CL `LOCAL_QUORUM` was satisfied by the only replica in local datacenter *DC-London*. One (`1 / 2 + 1`) response wa required.
 
 </details>
+
+<br/>
 
 Retrive a row using CL `EACH_QUORUM`:
 <details>
@@ -40,8 +40,6 @@ Retrive a row using CL `EACH_QUORUM`:
 CONSISTENCY EACH_QUORUM;
 SELECT * FROM users WHERE email = 'joe@datastax.com';
 ```
-
-<br/>
 
 CL `EACH_QUORUM` could not be satisfied because datacenter *DC-Paris* does not have two (`3 / 2 + 1`) replicas to respond.
 

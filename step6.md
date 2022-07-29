@@ -26,11 +26,11 @@ INSERT INTO users (email, name, age, date_joined)
 VALUES ('jen@datastax.com', 'Jen', 27, '2020-01-01');
 ```
 
-<br/>
-
 CL `TWO` was satisfied by the two nodes in the cluster.
 
 </details>
+
+<br/>
 
 Add a row using CL `THREE`:
 <details>
@@ -42,11 +42,11 @@ INSERT INTO users (email, name, age, date_joined)
 VALUES ('art@datastax.com', 'Art', 33, '2020-05-04');
 ```
 
-<br/>
-
 CL `THREE` could not be satisfied because the cluster does not have three replicas to respond.
 
 </details>
+
+<br/>
 
 Add a row using CL `LOCAL_ONE`:
 <details>
@@ -58,11 +58,11 @@ INSERT INTO users (email, name, age, date_joined)
 VALUES ('jim@datastax.com', 'Jim', 31, '2020-05-07');
 ```
 
-<br/>
-
 CL `LOCAL_ONE` was satisfied by the node in our local datacenter *DC-London*.
 
 </details>
+
+<br/>
 
 Retrieve all rows from the table:
 ```
