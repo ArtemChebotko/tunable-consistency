@@ -1,0 +1,35 @@
+tasks:
+  - name: install-dependencies
+    init: |
+      docker pull cassandra:4.0
+      pip install -U cqlsh
+    command: | 
+      docker run -p 9042:9042 -d \
+                 --name Cassandra-1 \
+                 -e CASSANDRA_CLUSTER_NAME='Cassandra Cluster' \
+                 -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch \
+                 -e CASSANDRA_DC=DC-London \
+                 -e CASSANDRA_RACK=rack1 \
+                 cassandra:4.0
+      timeout 60 bash -c 'until cqlsh localhost 9042 -e "describe cluster" >/dev/null 2>&1; do sleep 1; done'
+      INSTANCE1=$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' Cassandra-1)
+      docker run -p 9043:9042 -d \
+                 --name Cassandra-2 \
+                 -e CASSANDRA_CLUSTER_NAME='Cassandra Cluster' \
+                 -e CASSANDRA_SEEDS=$INSTANCE1 \
+                 -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch \
+                 -e CASSANDRA_DC=DC-Paris \
+                 -e CASSANDRA_RACK=rack1 \
+                 cassandra:4.0
+      INSTANCE2=$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' Cassandra-2)
+ports:
+  - port: 9042
+    onOpen: ignore
+  - port: 9043
+    onOpen: ignore
+github:
+  prebuilds:
+    main: true
+vscode:
+  extensions:
+    - https://github.com/HadesArchitect/katapod/releases/download/0.3.6/katapod-0.3.6.vsix
