@@ -16,9 +16,10 @@ Notice that we have:
 - one node in each datacenter
 
 Start the CQL shell:
+```
+cqlsh
+```
 
-`cqlsh`
-
-Notice that `cqlsh` connects to the node in *DC-London* in this example. 
+Notice that, in this example, `cqlsh` connects to the node in *DC-London* using default `localhost:9042`. The node in *DC-Paris* can be connected to by running command `cqlsh localhost 9043`.
 
 [continue](command:katapod.loadPage?step4){.orange_bar}
